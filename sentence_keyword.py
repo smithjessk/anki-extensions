@@ -51,6 +51,10 @@ for sentence in split_text_into_sentences(test_text):
 """
 # %%
 
+from dataclasses import dataclass
+
+import yaml
+
 
 @dataclass
 class Card:
@@ -65,11 +69,24 @@ class Card:
 
     def to_yaml_for_anki_cli(self):
         """format per https://github.com/julien-sobczak/anki-cli"""
-        d = {}
-        return yaml.dump
+        d = [
+            {
+                "type": "Basic",
+                "tags": ["auto_generated"],
+                "fields": {
+                    "Front": self.front,
+                    "Back": self.back,
+                },
+            }
+        ]
+        return yaml.dump(d)
 
 
 # test
 
 c = Card("myFront", "myBack")
-print(c.to_yaml_for_anki_cli())
+s = c.to_yaml_for_anki_cli()
+with open("test.yaml", "w") as f:
+    f.write(s)
+
+# %%

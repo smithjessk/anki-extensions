@@ -1,0 +1,6 @@
+- fields:
+    Back: myBack
+    Front: myFront
+  tags:
+  - auto_generated
+  type: Basic
