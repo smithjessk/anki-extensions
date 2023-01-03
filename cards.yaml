@@ -1,0 +1,9 @@
+# File cards.yaml
+
+# An array of documents
+
+- type: Basic # The type of the node to create ("Basic", "Basic (with reverse card)", etc.). Also known as the model.
+  tags: [tag1, tag2] # An optional list of tags
+  fields: # The ordered list of fields for the selected note type (ex: Basic notes require two fields: Front & Back)
+    Front: alskdjflakjBBBBonjour
+    Back: Hello

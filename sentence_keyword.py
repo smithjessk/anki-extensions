@@ -40,7 +40,36 @@ def summarize(sentence: str) -> str:
     return response.choices[0].text.strip()  # type: ignore
 
 
+from dataclasses import dataclass
+
+import yaml
+
 # test it
+"""
 for sentence in split_text_into_sentences(test_text):
     print({"sentence": sentence, "summary": summarize(sentence)})
+"""
 # %%
+
+
+@dataclass
+class Card:
+    """a card to be added to anki. just a front and back"""
+
+    front: str
+    back: str
+
+    def __to_yaml(self):
+        """returns a yaml representation of the card"""
+        return yaml.dump(self.__dict__)
+
+    def to_yaml_for_anki_cli(self):
+        """format per https://github.com/julien-sobczak/anki-cli"""
+        d = {}
+        return yaml.dump
+
+
+# test
+
+c = Card("myFront", "myBack")
+print(c.to_yaml_for_anki_cli())
