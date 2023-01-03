@@ -1,11 +1,13 @@
-#!python3
+#!/Users/jesssmith/opt/anaconda3/bin/python3
 
 # %%
-
 import os
+import sys
+from dataclasses import dataclass
 from typing import Iterable
 
 import openai
+import yaml
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -40,32 +42,12 @@ def summarize(sentence: str) -> str:
     return response.choices[0].text.strip()  # type: ignore
 
 
-from dataclasses import dataclass
-
-import yaml
-
-# test it
-"""
-for sentence in split_text_into_sentences(test_text):
-    print({"sentence": sentence, "summary": summarize(sentence)})
-"""
-# %%
-
-from dataclasses import dataclass
-
-import yaml
-
-
 @dataclass
 class Card:
     """a card to be added to anki. just a front and back"""
 
     front: str
     back: str
-
-    def __to_yaml(self):
-        """returns a yaml representation of the card"""
-        return yaml.dump(self.__dict__)
 
     def to_yaml_for_anki_cli(self):
         """format per https://github.com/julien-sobczak/anki-cli"""
@@ -82,11 +64,16 @@ class Card:
         return yaml.dump(d)
 
 
-# test
-
-c = Card("myFront", "myBack")
-s = c.to_yaml_for_anki_cli()
-with open("test.yaml", "w") as f:
-    f.write(s)
-
-# %%
+if __name__ == "__main__":
+    print("hi", file=sys.stderr)
+    lines = sys.stdin.readlines()
+    text = "\n".join(lines)
+    sentences = list(split_text_into_sentences(text))
+    print(f"{sentences=}", file=sys.stderr)
+    cards = []
+    for sentence in sentences:
+        summary = summarize(sentence)
+        card = Card(front=sentence, back=summary)
+        cards.append(card)
+    for card in cards:
+        print(card.to_yaml_for_anki_cli())

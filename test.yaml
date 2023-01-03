@@ -1,6 +1,5 @@
 - fields:
-    Back: myBack
-    Front: myFront
+    Back: in {{c10::computer science}}, a {{c1::call stack}} is a {{c5::stack data structure}} that stores information about the {{c6::active subroutines}} of a {{c3::computer program}}. this kind of stack is also known as an {{c4::execution stack}}, {{c8::program stack}}, {{c7::control stack}}, {{c2::run-time stack}}, or {{c9::machine stack}}, and is often shortened to just "the stack". although maintenance of the {{c1::call stack}} is important for the proper functioning of most software, the details are normally hidden and automatic in high-level programming languages. many computer instruction sets provide special instructions for manipulating stacks.
   tags:
   - auto_generated
   type: Basic
